@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <plugins>
+    <plugin>
+      <name>net.sf.mardao:mardao-maven-plugin</name>
+      <prefix>mardao</prefix>
+      <artifactId>mardao-maven-plugin</artifactId>
+    </plugin>
+  </plugins>
+</metadata>
