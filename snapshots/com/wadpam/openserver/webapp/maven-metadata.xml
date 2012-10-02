@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>com.wadpam.openserver</groupId>
+  <artifactId>webapp</artifactId>
+  <versioning>
+    <versions>
+      <version>1-SNAPSHOT</version>
+    </versions>
+    <lastUpdated>20121002045715</lastUpdated>
+  </versioning>
+</metadata>
