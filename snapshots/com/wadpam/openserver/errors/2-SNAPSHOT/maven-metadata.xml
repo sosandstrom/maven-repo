@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata modelVersion="1.1.0">
+  <groupId>com.wadpam.openserver</groupId>
+  <artifactId>errors</artifactId>
+  <version>2-SNAPSHOT</version>
+  <versioning>
+    <snapshot>
+      <timestamp>20121019.040106</timestamp>
+      <buildNumber>1</buildNumber>
+    </snapshot>
+    <lastUpdated>20121019040106</lastUpdated>
+    <snapshotVersions>
+      <snapshotVersion>
+        <extension>jar</extension>
+        <value>2-20121019.040106-1</value>
+        <updated>20121019040106</updated>
+      </snapshotVersion>
+      <snapshotVersion>
+        <extension>pom</extension>
+        <value>2-20121019.040106-1</value>
+        <updated>20121019040106</updated>
+      </snapshotVersion>
+    </snapshotVersions>
+  </versioning>
+</metadata>
