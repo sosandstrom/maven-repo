@@ -1,0 +1,47 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.wadpam.passbook</groupId>
+    <artifactId>passbook-parent</artifactId>
+    <version>1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>Legend Passbook parent</name>
+
+    <modules>
+         <module>service-passbook</module>
+         <module>Browns-Backend</module>
+    </modules>
+
+    <developers>
+        <developer>
+            <id>mattiaslevin</id>
+            <name>Mattias Levin</name>
+            <email>mattias.levin@gmail.com</email>
+            <url>http://www.linkedin.com/in/mattiaslevin</url>
+        </developer>
+        <developer>
+            <id>sosandstrom</id>
+            <name>Ola Sandstrom</name>
+            <email>s.o.sandstrom@gmail.com</email>
+            <url>http://www.linkedin.com/in/sosandstrom</url>
+        </developer>
+    </developers>
+
+    <distributionManagement>
+        <repository>
+            <id>sosandstrom-github-releases</id>
+            <name>sosandstrom GitHub releases repo</name>
+            <url>file:../mvn-repo/releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>sosandstrom-github-snapshots</id>
+            <name>sosandstrom GitHub snapshots repo</name>
+            <url>file:../mvn-repo/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <scm>
+        <url>https://github.com/sosandstrom/legend-passbook</url>
+        <developerConnection>scm:git:ssh://git@github.com/sosandstrom/legend-passbook.git</developerConnection>
+    </scm>
+</project>

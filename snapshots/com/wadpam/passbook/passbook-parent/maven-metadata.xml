@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>com.wadpam.passbook</groupId>
+  <artifactId>passbook-parent</artifactId>
+  <versioning>
+    <versions>
+      <version>1-SNAPSHOT</version>
+    </versions>
+    <lastUpdated>20121021052516</lastUpdated>
+  </versioning>
+</metadata>

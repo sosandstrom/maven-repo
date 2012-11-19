@@ -1,0 +1,54 @@
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.wadpam</groupId>
+    <artifactId>docrest</artifactId>
+    <packaging>pom</packaging>
+    <version>1.19</version>
+    <name>${project.groupId}:${project.artifactId}</name>
+
+    <modules>
+	    <module>docrest-api</module>
+	    <module>docrest-doclet</module>
+    </modules>
+    
+    <distributionManagement>
+        <repository>
+            <id>sosandstrom-github-releases</id>
+            <name>sosandstrom GitHub releases repo</name>
+            <url>file:../mvn-repo/releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>sosandstrom-github-snapshots</id>
+            <name>sosandstrom GitHub snapshots repo</name>
+            <url>file:../mvn-repo/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+<!--    <distributionManagement>
+            <repository>
+                    <id>nexus-releases</id>
+                    <name>nexus-releases</name>
+                    <url>http://maven.goldengekko.com:8001/nexus/content/repositories/releases</url>
+            </repository>
+    </distributionManagement>-->
+
+    <developers>
+        <developer>
+            <id>sosandstrom</id>
+            <name>Ola Sandstrom</name>
+            <email>s.o.sandstrom@gmail.com</email>
+            <url>http://www.linkedin.com/in/sosandstrom</url>
+        </developer>
+			<developer>
+				<id>LeePritchard</id>
+				<name>Lee Pritchard</name>
+				<email>leepritchard@live.com</email>
+				<url>http://www.linkedin.com/in/LeePritchard1983</url>
+			</developer>
+    </developers>
+
+    <scm>
+        <url>https://github.com/sosandstrom/docrest</url>
+        <developerConnection>scm:git:ssh://git@github.com/sosandstrom/docrest.git</developerConnection>
+    </scm>
+</project>

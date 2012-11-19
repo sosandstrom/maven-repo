@@ -1,0 +1,352 @@
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.wadpam.passbook</groupId>
+        <artifactId>passbook-parent</artifactId>
+        <version>1-SNAPSHOT</version>
+    </parent>
+    <artifactId>service-passbook</artifactId>
+    <packaging>jar</packaging>
+    <name>Passbok GAE Service</name>
+
+    <!-- Specify hard-coded project properties here -->
+    <properties>
+        <logging.level>ALL</logging.level>
+        <downloadSources>false</downloadSources>
+        <gae.version>1.7.0</gae.version>
+        <spring.version>3.1.1.RELEASE</spring.version>
+        <spring.security.version>3.1.0.RELEASE</spring.security.version>
+        <spring-social.version>1.0.1.RELEASE</spring-social.version>
+        <mardao.version>2.0.3-SNAPSHOT</mardao.version>
+        <docrest.version>1.15</docrest.version>
+        <javadocExecutable>${java.home}/../bin/javadoc</javadocExecutable>
+        <bouncycastle.version>1.47</bouncycastle.version>
+        <bouncycastle.variant>jdk15on</bouncycastle.variant>
+    </properties>
+
+    <build>
+        <plugins>
+            <!-- Java compiler version -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+                <executions>
+                    <!-- extra compile step of domain classes before generator processing -->
+                    <execution>
+                        <id>compile-entities</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                        <configuration>
+                            <verbose>false</verbose>
+                            <fork>true</fork>
+                            <includes>
+                                <include>**/domain/*.java</include>
+                            </includes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>net.sf.mardao</groupId>
+                <artifactId>mardao-maven-plugin</artifactId>
+                <version>${mardao.version}</version>
+                <executions>
+                    <execution>
+                        <id>generate-generics</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate-sources</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>generate-daos</id>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>process-classes</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <basePackage>com.wadpam.passbook</basePackage>
+                    <sourceVersion>1.6</sourceVersion>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.5</version>
+                <executions>
+                    <execution>
+                        <id>add-source</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>
+                                    ${project.basedir}/target/generated-sources/dao
+                                </source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.7</version>
+                <executions>
+                    <execution>
+                        <phase>prepare-package</phase>
+                        <configuration>
+                            <target>
+                                <copy file="src/main/resources/spring-dao.xml" tofile="target/classes/passbook-service-dao-context.xml" overwrite="true" />
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-eclipse-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <wtpversion>2.0</wtpversion>
+                </configuration>
+            </plugin>
+
+        </plugins>
+        
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>net.sf.mardao</groupId>
+            <artifactId>mardao-gae</artifactId>
+            <version>${mardao.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.mardao</groupId>
+            <artifactId>mardao-core</artifactId>
+            <version>${mardao.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>com.wadpam.openserver</groupId>
+            <artifactId>errors</artifactId>
+            <version>1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.wadpam.openserver</groupId>
+            <artifactId>jsonp</artifactId>
+            <version>1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.wadpam.openserver</groupId>
+            <artifactId>push</artifactId>
+            <version>1</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcpkix-${bouncycastle.variant}</artifactId>
+            <version>${bouncycastle.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcmail-${bouncycastle.variant}</artifactId>
+            <version>${bouncycastle.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-${bouncycastle.variant}</artifactId>
+            <version>${bouncycastle.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.4</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.6</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib</artifactId>
+            <version>2.2.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.appengine</groupId>
+            <artifactId>appengine-api-1.0-sdk</artifactId>
+            <version>${gae.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.6.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.3</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity</artifactId>
+            <version>1.6.2</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-core-asl</artifactId>
+            <version>1.9.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>1.9.2</version>
+        </dependency>
+            
+        <!-- for javadoc -->
+        <dependency>
+            <groupId>com.wadpam</groupId>
+            <artifactId>docrest-api</artifactId>
+            <version>${docrest.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.sun</groupId>
+                    <artifactId>tools</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.8.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-jdk14</artifactId>
+            <version>1.6.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.appengine</groupId>
+            <artifactId>appengine-testing</artifactId>
+            <version>${gae.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.appengine</groupId>
+            <artifactId>appengine-api-labs</artifactId>
+            <version>${gae.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.appengine</groupId>
+            <artifactId>appengine-api-stubs</artifactId>
+            <version>${gae.version}</version>
+            <scope>test</scope>
+        </dependency>
+        
+        <!--mem cache-->
+        <dependency>
+            <groupId>net.sf.jsr107cache</groupId>
+            <artifactId>jsr107cache</artifactId>
+            <version>1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.appengine</groupId>
+            <artifactId>appengine-jsr107cache</artifactId>
+            <version>${gae.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+		
+    </dependencies>
+    
+    <profiles>
+        <profile>
+            <id>javadoc</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>2.8</version>
+                        <configuration>
+                            <author>false</author>
+                            <doclet>com.wadpam.docrest.DocRestDoclet</doclet>
+                            <docletArtifact>
+                                <groupId>com.wadpam</groupId>
+                                <artifactId>docrest-doclet</artifactId>
+                                <version>${docrest.version}</version>
+                            </docletArtifact>
+                            <encoding>UTF-8</encoding>
+                            <javadocExecutable>${javadocExecutable}</javadocExecutable>
+                            <sourcepath>src/main/java</sourcepath>
+                            <useStandardDocletOptions>false</useStandardDocletOptions>
+                            <verbose>true</verbose>
+                        </configuration>
+                    </plugin>
+                    
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>nexus</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <configuration>
+                            <executable>/usr/lib/jvm/java-1.7.0-openjdk-amd64/bin/javac</executable>
+                        </configuration>
+                    </plugin>                    
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+    
+    <repositories>
+    </repositories>
+
+</project>
