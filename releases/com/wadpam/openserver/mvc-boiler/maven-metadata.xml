@@ -3,7 +3,7 @@
   <groupId>com.wadpam.openserver</groupId>
   <artifactId>mvc-boiler</artifactId>
   <versioning>
-    <release>16</release>
+    <release>18</release>
     <versions>
       <version>6</version>
       <version>7</version>
@@ -12,7 +12,9 @@
       <version>12</version>
       <version>14</version>
       <version>16</version>
+      <version>17</version>
+      <version>18</version>
     </versions>
-    <lastUpdated>20130303125859</lastUpdated>
+    <lastUpdated>20130316113128</lastUpdated>
   </versioning>
 </metadata>
